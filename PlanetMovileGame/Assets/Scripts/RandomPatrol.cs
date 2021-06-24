@@ -13,7 +13,13 @@ public class RandomPatrol : MonoBehaviour
 
     Vector2 targetPosition;
 
-    public float speed;
+    public float minSpeed;
+    public float maxSpeed;
+
+    private float speed;
+
+    public float secondToMaxDifficulty;
+
     // Start is called before the first frame update
     
     void Start()
@@ -26,6 +32,7 @@ public class RandomPatrol : MonoBehaviour
     {
         if((Vector2)transform.position != targetPosition)
         {
+            speed = Mathf.Lerp(minSpeed,maxSpeed,GetDifficultyPercent());
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed*Time.deltaTime);
         }
         else
@@ -48,5 +55,12 @@ public class RandomPatrol : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+    float GetDifficultyPercent()
+    {
+        //clamp01 secure that the operation is in the arrange betweeen 0 and 1
+        return Mathf.Clamp01(Time.timeSinceLevelLoad / secondToMaxDifficulty);
+    }
+
 
 }
