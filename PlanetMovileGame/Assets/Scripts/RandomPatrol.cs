@@ -20,6 +20,8 @@ public class RandomPatrol : MonoBehaviour
 
     public float secondToMaxDifficulty;
 
+    public GameObject restartPanel;
+
     // Start is called before the first frame update
     
     void Start()
@@ -52,7 +54,7 @@ public class RandomPatrol : MonoBehaviour
     {
         if (collision.tag == "Planets")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            restartPanel.SetActive(true);
         }
     }
 
